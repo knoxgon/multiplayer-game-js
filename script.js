@@ -1,18 +1,21 @@
-let sck = io.connect('http://192.168.1.11:1234');
+let sck = io.connect('http://localhost:1234');
 //let sck = io.connect('http://10.7.1.95:1234');
 let WindowGraphic = new Graphic(document.getElementById("myCanvas"), document.getElementById("myCanvas").getContext("2d"));
-
+let keys = []
 let listOfPlayers = {};
+
 
 let randomNick = "PlayerNick_" + Math.random() % 999999999;
 let randomX = 25 + 10;
 let randomY = 25 + 10;
 
-let player = new Player(randomNick, randomX, randomY, 10, 5);
+let player = new Player(randomNick, randomX, randomY, 10, 1);
 sck.emit('new player spawn', player);
 
 let tmap = new TileMap('gamelayer.json');
 tmap.readFile();
+
+//const coin = new SpriteAnimation('assets/coin-sprite-animation.png', 10, 4, 0.5);
 
 sck.on('player join', (data) => {
   //Iterate players
@@ -30,10 +33,12 @@ sck.on('position update', (data) => {
 });
 
 document.addEventListener('keydown', (event) => {
-  player.move(event);
+  keys[event.keyCode] = true;
+  // player.move(event);
 });
 document.addEventListener('keyup', (event) => {
-  player.move(event);
+  // player.move(event);
+  keys[event.keyCode] = false;
 });
 
 sck.on('player leave', (data) => {
@@ -42,8 +47,7 @@ sck.on('player leave', (data) => {
 
 sck.on('player shoot', (data) => {
 
-  player.fire(data);
-})
+});
 
 function loop() {
   WindowGraphic.clear();
@@ -53,6 +57,7 @@ function loop() {
       listOfPlayers[key].render();
     }
   };
+  player.move();
   requestAnimationFrame(loop);  
 }
 requestAnimationFrame(loop);
