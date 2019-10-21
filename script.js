@@ -6,8 +6,8 @@ let listOfPlayers = {};
 
 
 let randomNick = "PlayerNick_" + Math.random() % 999999999;
-let randomX = 25 + 10;
-let randomY = 25 + 10;
+let randomX = 35;
+let randomY = 35;
 
 let player = new Player(randomNick, randomX, randomY, 10, 1);
 sck.emit('new player spawn', player);
@@ -52,12 +52,14 @@ sck.on('player shoot', (data) => {
 function loop() {
   WindowGraphic.clear();
   tmap.render();
+  // player.move();
   for (let key in listOfPlayers) {
     if (listOfPlayers.hasOwnProperty(key)) {
       listOfPlayers[key].render();
     }
   };
-  player.move();
+  if(listOfPlayers[player.name])
+    listOfPlayers[player.name].move()
   requestAnimationFrame(loop);  
 }
 requestAnimationFrame(loop);
