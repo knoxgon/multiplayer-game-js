@@ -20,7 +20,24 @@
   <script src="lib/TileMap.js"></script>
 </head>
 <body>
-  <canvas id="myCanvas" width="512" height="512"></canvas>
-  <script src="script.js"></script>
+  <nav class="navbar">
+    <ul id="nav-menu">
+      <li class="nav-elem"><a href='#'>Home</a></li>
+      <li class="nav-elem"><a href='#'>Games</a></li>
+      <li class="nav-elem"><a href='#'>About us</a></li>
+      <li class="nav-elem"><a href='#'>Contact</a></li>
+    </ul>
+  </nav>
+  <div class="gameArea">
+    <form name="playerForm">
+      <input id="player-input" type="text" name="playerName"><span id="error-message" hidden>Please fill name</span><br>
+      <button type="submit" value="submit">Play</button>
+    </form>
+    <div id='playerSection'>
+        <ul id="playerList"></ul>
+    </div>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+  </div>
+  <script src="form-validate.js"></script>
 </body>
 </html>
